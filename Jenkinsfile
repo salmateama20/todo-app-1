@@ -8,12 +8,19 @@ pipeline {
             }
         }
 
-        stage('Install dependencies') {
-            steps {
-                sh 'npm ci'
-            }
-        }
-
+//         stage('Install dependencies') {
+//             steps {
+//                 sh 'npm ci'
+//             }
+//         }
+       stage('Install dependencies') {
+             steps {
+                dir('todo-app') {
+                    sh 'npm install --no-deprecated --omit=optional'
+                    sh 'npm run build'
+                }
+             }   
+       }     
         stage('Run tests') {
             steps {
                 sh 'npm test'
